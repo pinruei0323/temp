@@ -18,27 +18,29 @@ using namespace std;
 
 int main()
 {
-    ll n, tmp=0, l=0, minn=LONG_LONG_MAX, maxx=LONG_LONG_MIN;
+    ll n, ans=0;
     cin >> n;
-    vector <ll> data(10000000);
-    vector <ll> ans(10000000);
+    vector <pair <ll, ll>> data(n);
+    vector <bool> ok(n, 1);
+    f2(i, n)    cin >> data[i].first >> data[i].second;
+    sort(&data[0], &data[n]);
+    ll maxEnd = data[0].second;
+    f3(i, 1, n)
+    {
+        if(data[i].first < maxEnd)
+        {
+            if(data[i].second <= maxEnd)
+                ok[i] = 0;
+            else
+            {
+                data[i].first = maxEnd;
+                maxEnd = data[i].second;
+            }
+        }
+        else
+            maxEnd = data[i].second;
+    }
     f2(i, n)
-    {
-        ll a, b;
-        cin >> a >> b;
-        minn = min(minn, a);
-        minn = min(minn, b);
-        maxx = max(maxx, a);
-        maxx = max(maxx, b);
-        data[a]+=1;
-        data[b]-=1;
-    }
-    f3(i, minn, maxx+1)
-    {
-        tmp+=data[i];
-        ans[i]=tmp;
-    }
-    f3(i, minn, maxx+1)
-        if(ans[i])    l++;
-    cout << l;
+        if(ok[i])    ans+=data[i].second-data[i].first;
+    cout << ans;
 }
