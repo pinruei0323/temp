@@ -16,31 +16,20 @@
 */
 using namespace std;
 
-int main()
+int main()    //    https://zerojudge.tw/ShowProblem?problemid=f607
 {
-    ll n, ans=0;
-    cin >> n;
-    vector <pair <ll, ll>> data(n);
-    vector <bool> ok(n, 1);
-    f2(i, n)    cin >> data[i].first >> data[i].second;
-    sort(&data[0], &data[n]);
-    ll maxEnd = data[0].second;
-    f3(i, 1, n)
+    ll n, m, ans=0;
+    cin >> n >> m;
+    vector <pair <ll, ll>> cut(n);
+    set <ll> data = {0, m};
+    f2(i, n)    cin >> cut[i].second >> cut[i].first;
+    sort(&cut[0], &cut[n]);
+    for(auto i : cut)
     {
-        if(data[i].first < maxEnd)
-        {
-            if(data[i].second <= maxEnd)
-                ok[i] = 0;
-            else
-            {
-                data[i].first = maxEnd;
-                maxEnd = data[i].second;
-            }
-        }
-        else
-            maxEnd = data[i].second;
+        auto l = upper_bound(begin(data), end(data), i.second);
+        auto r = l--;
+        ans+=*r-*l;
+        data.insert(i.second);
     }
-    f2(i, n)
-        if(ok[i])    ans+=data[i].second-data[i].first;
     cout << ans;
 }
