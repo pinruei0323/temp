@@ -20,16 +20,19 @@ void dfs(ll a, ll b, ll &n, ll &m, bool first, auto &data, auto &visited, ll &an
 {
     if(a>=0 && b>=0 && a<n && b<m && !visited[a][b] && s.find(data[a][b])+1)
     {
-        string s1 = "XILJ",
-               s2 = "XI7F",
-               s3 = "XHLF",
-               s4 = "XH7J"; 
-        if(first)    ans++;
-        visited[a][b] = 1;
-        if(s1.find(data[a][b])+1)    dfs(a+1, b, n, m, 0, data, visited, ans, s2);
-        if(s2.find(data[a][b])+1)    dfs(a-1, b, n, m, 0, data, visited, ans, s1);
-        if(s3.find(data[a][b])+1)    dfs(a, b+1, n, m, 0, data, visited, ans, s4);
-        if(s4.find(data[a][b])+1)    dfs(a, b-1, n, m, 0, data, visited, ans, s3);
+        if(data[a][b] != '0')
+        {
+            string s1 = "XILJ",
+                s2 = "XI7F",
+                s3 = "XHLF",
+                s4 = "XH7J"; 
+            if(first)    ans++;
+            visited[a][b] = 1;
+            if(s1.find(data[a][b])+1)    dfs(a+1, b, n, m, 0, data, visited, ans, s2);
+            if(s2.find(data[a][b])+1)    dfs(a-1, b, n, m, 0, data, visited, ans, s1);
+            if(s3.find(data[a][b])+1)    dfs(a, b+1, n, m, 0, data, visited, ans, s4);
+            if(s4.find(data[a][b])+1)    dfs(a, b-1, n, m, 0, data, visited, ans, s3);
+        }
     }
 }
 
